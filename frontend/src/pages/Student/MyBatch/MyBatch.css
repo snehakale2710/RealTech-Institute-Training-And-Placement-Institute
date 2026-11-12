@@ -1,0 +1,1101 @@
+/* =========================================
+   MY BATCH PAGE
+   Workspace layout: stat tiles on top, then
+   [ classes table | today's class panel ].
+   Responsive rules use container queries so they
+   follow the space left beside the sidebar.
+
+   FONT: this page inherits the app-wide font from
+   `body` (see the global snippet), so the sidebar,
+   top bar and page all match.
+========================================= */
+
+.my-batch-page {
+  --brand: #ff8b22;
+  --brand-hover: #ed7510;
+  --brand-soft: #ffeadb;
+  --brand-tint: #fff8f0;
+  --header-bg: #fbf0df;
+
+  --surface: #ffffff;
+  --text: #171717;
+  --text-muted: #5a5a5a;
+  --border: #e3e0db;
+  --border-strong: #c9c5be;
+  --link: #4338ca;
+
+  --shadow: 0 1px 3px rgb(0 0 0 / 10%), 0 1px 2px rgb(0 0 0 / 6%);
+  --radius-lg: 14px;
+  --radius-md: 10px;
+
+  padding: 0 0 24px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px; /* was 15px */
+  line-height: 1.4;
+  box-sizing: border-box;
+}
+
+.my-batch-page *,
+.my-batch-page *::before,
+.my-batch-page *::after {
+  box-sizing: border-box;
+}
+
+/* Fills the workspace; only capped on very large monitors */
+.batch-container {
+  width: 100%;
+  max-width: 1680px;
+  margin: 0 auto;
+  container-type: inline-size;
+}
+
+.my-batch-page button,
+.my-batch-page input {
+  font-family: inherit;
+}
+
+.my-batch-page :focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: 2px;
+}
+
+/* =========================================
+   BREADCRUMB AND HEADER
+========================================= */
+
+.batch-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.batch-page-header {
+  margin-bottom: 20px;
+}
+
+.batch-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.batch-title-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  color: #ef780e;
+  background: var(--brand-soft);
+  border-radius: 12px;
+}
+
+.batch-page-header h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.batch-page-header p {
+  max-width: 90ch;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 15px;
+  text-wrap: balance;
+}
+
+/* =========================================
+   SHARED CARD LOOK
+========================================= */
+
+.batch-summary-item,
+.today-class-card,
+.classes-schedule-section {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+/* =========================================
+   SUMMARY TILES
+   Four equal-width tiles. The top line of every
+   tile has the same fixed height, so the labels
+   underneath line up across all four cards.
+========================================= */
+
+.batch-summary-card {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 20px; /* was 24px */
+}
+
+.batch-summary-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  min-height: 80px; /* was 92px */
+  padding: 14px 18px; /* was 16px 20px */
+}
+
+.summary-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  color: #ef780e;
+  background: var(--brand-soft);
+  border-radius: 50%;
+}
+
+.summary-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+}
+
+.summary-text h3 {
+  display: flex;
+  align-items: center;
+  min-height: 26px;
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.summary-text p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.active-badge {
+  padding: 3px 12px;
+  color: #006b2d;
+  background: #d9fbe5;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* =========================================
+   WORKSPACE GRID
+   narrow: one column (today's class first)
+   wide:   table left, today's class panel right
+========================================= */
+
+.batch-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.batch-side,
+.batch-main {
+  min-width: 0;
+}
+
+/* =========================================
+   TODAY'S ONLINE CLASS
+========================================= */
+
+.today-class-card {
+  padding: 20px 22px 22px;
+}
+
+.today-class-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.today-class-heading h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.today-class-date {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.today-class-content {
+  display: grid;
+  grid-template-columns: 1.05fr 1.2fr 0.85fr;
+  align-items: stretch;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+}
+
+.today-session,
+.today-meeting {
+  display: flex;
+  align-items: center;
+  gap: 14px; /* was 18px */
+  min-width: 0;
+  padding: 18px; /* was 24px */
+  border-right: 1px solid var(--border-strong);
+}
+
+.icon-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 56px; /* was 68px */
+  height: 56px;
+  color: var(--brand);
+  background: var(--brand-soft);
+  border-radius: 50%;
+}
+
+.today-info {
+  min-width: 0;
+}
+
+.today-info h3 {
+  margin: 0 0 4px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.today-info p {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+
+.session-count {
+  display: inline-block;
+  padding: 4px 12px;
+  color: #444;
+  background: #ececec;
+  border-radius: 18px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.meeting-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  color: #555;
+  font-size: 13px;
+}
+
+.meeting-link a,
+.table-meeting-link a {
+  overflow: hidden;
+  color: var(--link);
+  text-decoration: underline;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meeting-link a {
+  max-width: 200px;
+}
+
+.meeting-link svg {
+  flex-shrink: 0;
+}
+
+.copy-link-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 4px;
+  color: #555;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.copy-link-button:hover {
+  color: var(--brand-hover);
+  background: var(--brand-tint);
+}
+
+.today-class-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  padding: 22px;
+}
+
+.join-class-button,
+.view-details-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.join-class-button {
+  color: #fff;
+  background: var(--brand);
+  border: 1px solid var(--brand);
+}
+
+.join-class-button:hover,
+.table-join-button:hover {
+  background: var(--brand-hover);
+}
+
+.view-details-button {
+  color: #111;
+  background: var(--surface);
+  border: 1px solid var(--brand);
+}
+
+.view-details-button:hover,
+.table-view-button:hover {
+  background: #fff5eb;
+}
+
+.chevron-rotated {
+  transform: rotate(180deg);
+}
+
+.today-extra-details {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+  padding: 14px 18px;
+  color: #333;
+  background: var(--brand-tint);
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.today-extra-details strong {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.empty-state {
+  padding: 28px 16px;
+  color: var(--text-muted);
+  text-align: center;
+  border: 1px dashed var(--border-strong);
+  border-radius: 12px;
+}
+
+.empty-state p {
+  margin: 0;
+}
+
+/* =========================================
+   CLASSES CARD: TOOLBAR + TABLE
+========================================= */
+
+.classes-schedule-section {
+  overflow: hidden;
+}
+
+.classes-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  padding: 18px 20px;
+}
+
+.classes-toolbar h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.classes-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: #f3efe9;
+  border-radius: 10px;
+}
+
+.filter-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  color: #555;
+  background: transparent;
+  border: none;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.filter-tab:hover {
+  color: #111;
+}
+
+.filter-tab[aria-pressed="true"] {
+  color: #111;
+  background: #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 15%);
+}
+
+.filter-count {
+  padding: 1px 7px;
+  color: #555;
+  background: #e6e0d8;
+  border-radius: 10px;
+  font-size: 11px;
+}
+
+.table-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  color: #666;
+  background: #faf7f3;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.table-search:focus-within {
+  border-color: var(--brand);
+}
+
+.table-search input {
+  width: 170px;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.classes-table-wrapper {
+  overflow-x: auto;
+}
+
+.classes-table {
+  width: 100%;
+  min-width: 860px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+}
+
+.classes-table thead {
+  background: var(--header-bg);
+}
+
+.classes-table th {
+  padding: 13px 16px;
+  color: #444;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* Sortable header: looks like the plain header text, with a small arrow */
+.sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  font-size: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+}
+
+.sort-button svg {
+  color: #8a8378;
+}
+
+.sort-button:hover,
+.sort-button:hover svg {
+  color: var(--brand-hover);
+}
+
+.classes-table th[aria-sort="ascending"] .sort-button svg,
+.classes-table th[aria-sort="descending"] .sort-button svg {
+  color: var(--brand-hover);
+}
+
+.classes-table td {
+  padding: 12px 16px; /* was 14px 16px */
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.classes-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.classes-table tbody tr:hover td {
+  background: #fffaf4;
+}
+
+.classes-table .empty-row td {
+  padding: 36px 16px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.table-footer {
+  padding: 12px 20px;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.course-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 200px;
+}
+
+.course-small-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  color: #444;
+  background: var(--surface);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 12%);
+}
+
+.cell-main,
+.cell-sub {
+  display: block;
+}
+
+.cell-main {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.cell-sub {
+  margin-top: 3px;
+  color: var(--text-muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.platform-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #444;
+  white-space: nowrap;
+}
+
+.platform-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.platform-meet {
+  color: #0a9d61;
+}
+
+.platform-zoom {
+  color: #1689ff;
+}
+
+.platform-teams {
+  color: #6264a7;
+}
+
+.table-meeting-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 200px;
+  font-size: 13px;
+}
+
+.table-meeting-link a {
+  max-width: 150px;
+}
+
+.class-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.class-status::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+  border-radius: 50%;
+}
+
+.status-ongoing {
+  color: #006b2d;
+  background: #d6f9df;
+}
+
+.status-upcoming {
+  color: #0a47c9;
+  background: #d8eaff;
+}
+
+.status-completed {
+  color: #4a4a4a;
+  background: #e2e2e2;
+}
+
+/* Both action buttons share one width so the column stays tidy */
+.table-join-button,
+.table-view-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 104px;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.table-join-button {
+  color: #fff;
+  background: var(--brand);
+  border: 1px solid var(--brand);
+}
+
+.table-view-button {
+  color: #c25a00;
+  background: var(--surface);
+  border: 1px solid var(--brand);
+}
+
+/* =========================================
+   DETAILS MODAL
+========================================= */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgb(0 0 0 / 45%);
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 460px;
+  padding: 22px;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 25%);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 19px;
+}
+
+.modal-close {
+  display: inline-flex;
+  padding: 6px;
+  color: #444;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  background: #f0f0f0;
+}
+
+.modal-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.modal-list > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-list > div:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.modal-list dt {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.modal-list dd {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* =========================================
+   WIDE WORKSPACE (content width 1300px+)
+   table on the left, today's class as a sticky
+   side panel that stays in view while scrolling
+   (was 1100px / 380px panel)
+========================================= */
+
+@container (min-width: 1300px) {
+  .batch-grid {
+    grid-template-columns: minmax(0, 1fr) 340px;
+  }
+
+  .batch-main {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .batch-side {
+    position: sticky;
+    top: 16px;
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .today-class-content {
+    grid-template-columns: 1fr;
+    border: none;
+  }
+
+  .today-session,
+  .today-meeting {
+    padding: 16px 0;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .today-session {
+    padding-top: 4px;
+  }
+
+  .icon-circle {
+    width: 52px;
+    height: 52px;
+  }
+
+  .today-class-actions {
+    padding: 18px 0 0;
+  }
+
+  .meeting-link a {
+    max-width: 150px;
+  }
+
+  .today-extra-details {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* =========================================
+   TABLET (content width up to 860px)
+========================================= */
+
+@container (max-width: 860px) {
+  .batch-summary-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .today-class-content {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .today-meeting {
+    border-right: none;
+  }
+
+  .today-class-actions {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    padding: 16px 24px 24px;
+    border-top: 1px solid var(--border-strong);
+  }
+
+  .today-extra-details {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* =========================================
+   MOBILE (content width up to 640px)
+   Table turns into one card per class
+========================================= */
+
+@container (max-width: 640px) {
+  .batch-page-header h1 {
+    font-size: 22px;
+  }
+
+  .batch-title-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+  }
+
+  .batch-title-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .batch-summary-card {
+    gap: 12px;
+  }
+
+  .batch-summary-item {
+    min-height: 76px;
+    padding: 12px 16px;
+  }
+
+  .today-class-card {
+    padding: 16px 14px 20px;
+  }
+
+  .today-class-heading h2,
+  .classes-toolbar h2 {
+    font-size: 18px;
+  }
+
+  .today-class-content {
+    grid-template-columns: 1fr;
+  }
+
+  .today-session,
+  .today-meeting {
+    padding: 16px;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .today-class-actions {
+    flex-direction: column;
+    padding: 16px;
+    border-top: none;
+  }
+
+  .meeting-link a {
+    max-width: 170px;
+  }
+
+  /* toolbar */
+  .classes-schedule-section {
+    overflow: visible;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .classes-toolbar {
+    padding: 0 0 12px;
+  }
+
+  .classes-controls,
+  .table-search,
+  .filter-tabs {
+    width: 100%;
+  }
+
+  .filter-tabs {
+    overflow-x: auto;
+  }
+
+  .table-search input {
+    width: 100%;
+  }
+
+  .table-footer {
+    padding: 4px 0 0;
+    border-top: none;
+  }
+
+  /* table -> cards */
+  .classes-table-wrapper {
+    overflow: visible;
+  }
+
+  .classes-table {
+    min-width: 0;
+  }
+
+  .classes-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .classes-table,
+  .classes-table tbody,
+  .classes-table tr,
+  .classes-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .classes-table tr {
+    margin-bottom: 12px;
+    padding: 4px 14px;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow);
+  }
+
+  .classes-table td,
+  .classes-table tbody tr:last-child td,
+  .classes-table tbody tr:hover td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    background: transparent;
+    border-bottom: 1px solid #eee;
+    text-align: right;
+  }
+
+  .classes-table tr td:last-child {
+    border-bottom: none;
+  }
+
+  .classes-table td::before {
+    content: attr(data-label);
+    flex-shrink: 0;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  .classes-table .empty-row td {
+    justify-content: center;
+  }
+
+  .course-name-cell {
+    min-width: 0;
+    text-align: left;
+  }
+
+  .table-meeting-link {
+    max-width: 200px;
+  }
+
+  .today-extra-details {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE (content width up to 360px)
+========================================= */
+
+@container (max-width: 360px) {
+  .batch-summary-card {
+    grid-template-columns: 1fr;
+  }
+
+  .today-class-heading {
+    flex-wrap: wrap;
+  }
+
+  .today-extra-details {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .my-batch-page * {
+    transition: none !important;
+  }
+}
