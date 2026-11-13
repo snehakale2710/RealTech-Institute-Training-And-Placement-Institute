@@ -405,7 +405,6 @@ function ClassesTable({ list, copied, onCopy, onView }) {
 
   const countFor = (f) =>
     f === "All" ? list.length : list.filter((c) => c.status === f).length;
-
   /* Click once = ascending, again = descending, third click = original order */
   const toggleSort = (key) =>
     setSort((prev) => {
@@ -413,7 +412,6 @@ function ClassesTable({ list, copied, onCopy, onView }) {
       if (prev.dir === "asc") return { key, dir: "desc" };
       return { key: null, dir: "asc" };
     });
-
   const visible = useMemo(() => {
     const search = query.trim().toLowerCase();
     const filtered = list.filter(
@@ -421,24 +419,19 @@ function ClassesTable({ list, copied, onCopy, onView }) {
         (filter === "All" || c.status === filter) &&
         c.name.toLowerCase().includes(search)
     );
-
     if (!sort.key) return filtered;
-
     const sorted = [...filtered].sort(SORTERS[sort.key]);
     return sort.dir === "desc" ? sorted.reverse() : sorted;
   }, [list, filter, query, sort]);
-
   const ariaSort = (col) => {
     if (!col.sortable) return undefined;
     if (sort.key !== col.key) return "none";
     return sort.dir === "asc" ? "ascending" : "descending";
   };
-
   return (
     <section className="classes-schedule-section" aria-labelledby="classes-heading">
       <div className="classes-toolbar">
         <h2 id="classes-heading">My Classes &amp; Schedule</h2>
-
         <div className="classes-controls">
           <div className="filter-tabs" role="group" aria-label="Filter by status">
             {FILTERS.map((f) => (
@@ -454,7 +447,6 @@ function ClassesTable({ list, copied, onCopy, onView }) {
               </button>
             ))}
           </div>
-
           <label className="table-search">
             <Search size={16} />
             <input
@@ -467,7 +459,6 @@ function ClassesTable({ list, copied, onCopy, onView }) {
           </label>
         </div>
       </div>
-
       <div className="classes-table-wrapper">
         <table className="classes-table">
           <thead>
@@ -493,18 +484,15 @@ function ClassesTable({ list, copied, onCopy, onView }) {
               ))}
             </tr>
           </thead>
-
           <tbody>
             {visible.length === 0 && (
               <tr className="empty-row">
                 <td colSpan={COLUMNS.length}>No classes match your filters.</td>
               </tr>
             )}
-
             {visible.map((item) => {
               const CourseIcon = COURSE_ICONS[item.icon] || BookOpen;
               const { Icon: PlatformIcon, className } = getPlatform(item.platform);
-
               return (
                 <tr key={item.id}>
                   <td data-label="Course">
@@ -518,17 +506,14 @@ function ClassesTable({ list, copied, onCopy, onView }) {
                       </div>
                     </div>
                   </td>
-
                   <td data-label="Batch">
                     <span className="cell-main">{item.batch}</span>
                     <span className="cell-sub">{item.classNo}</span>
                   </td>
-
                   <td data-label="Schedule">
                     <span className="cell-main">{item.days}</span>
                     <span className="cell-sub">{item.time}</span>
                   </td>
-
                   <td data-label="Platform">
                     <div className="platform-name">
                       <span className={`platform-icon ${className}`}>
@@ -537,7 +522,6 @@ function ClassesTable({ list, copied, onCopy, onView }) {
                       {item.platform}
                     </div>
                   </td>
-
                   <td data-label="Meeting Link">
                     <div className="table-meeting-link">
                       <a
@@ -556,11 +540,9 @@ function ClassesTable({ list, copied, onCopy, onView }) {
                       />
                     </div>
                   </td>
-
                   <td data-label="Status">
                     <StatusBadge status={item.status} />
                   </td>
-
                   <td data-label="Action">
                     {item.status === "Ongoing" ? (
                       <button
@@ -586,14 +568,12 @@ function ClassesTable({ list, copied, onCopy, onView }) {
           </tbody>
         </table>
       </div>
-
       <div className="table-footer" aria-live="polite">
         Showing {visible.length} of {list.length} classes
       </div>
     </section>
   );
 }
-
 function ClassDetailsModal({ item, onClose }) {
   useEffect(() => {
     if (!item) return undefined;
@@ -601,9 +581,7 @@ function ClassDetailsModal({ item, onClose }) {
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [item, onClose]);
-
   if (!item) return null;
-
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div
@@ -624,7 +602,6 @@ function ClassDetailsModal({ item, onClose }) {
             <X size={20} />
           </button>
         </div>
-
         <dl className="modal-list">
           <div>
             <dt>Batch</dt>
@@ -663,17 +640,13 @@ function ClassDetailsModal({ item, onClose }) {
     </div>
   );
 }
-
 /* ---------------------------------------------------------
    PAGE
 --------------------------------------------------------- */
-
 function MyBatch() {
   const [copied, copyLink] = useCopyLink();
   const [selectedClass, setSelectedClass] = useState(null);
-
   const todayClass = pickTodayClass(classes);
-
   return (
     <div className="my-batch-page">
       <div className="batch-container">
@@ -682,7 +655,6 @@ function MyBatch() {
           <ChevronRight size={15} />
           <span aria-current="page">My Batch</span>
         </nav>
-
         <header className="batch-page-header">
           <div className="batch-title-row">
             <span className="batch-title-icon" aria-hidden="true">
@@ -695,14 +667,11 @@ function MyBatch() {
             platform, and course information.
           </p>
         </header>
-
         <SummaryCard info={batchInfo} />
-
         <div className="batch-grid">
           <div className="batch-side">
             <TodayClass item={todayClass} copied={copied} onCopy={copyLink} />
           </div>
-
           <div className="batch-main">
             <ClassesTable
               list={classes}
@@ -713,7 +682,6 @@ function MyBatch() {
           </div>
         </div>
       </div>
-
       <ClassDetailsModal
         item={selectedClass}
         onClose={() => setSelectedClass(null)}
@@ -721,5 +689,4 @@ function MyBatch() {
     </div>
   );
 }
-
 export default MyBatch;
