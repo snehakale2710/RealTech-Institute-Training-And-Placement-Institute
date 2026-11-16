@@ -1,0 +1,812 @@
+/* =========================================
+   ATTENDANCE PAGE
+   Same tokens, spacing and patterns as My Batch:
+   header -> 4 summary tiles -> content grid -> records.
+   Responsive rules use container queries so they
+   follow the space left beside the sidebar.
+   FONT: inherited from `body` (Inter, see index.css).
+========================================= */
+
+.attendance-page {
+  --brand: #ff8b22;
+  --brand-hover: #ed7510;
+  --brand-soft: #ffeadb;
+  --brand-tint: #fff8f0;
+  --header-bg: #fbf0df;
+
+  --surface: #ffffff;
+  --text: #171717;
+  --text-muted: #5a5a5a;
+  --border: #e3e0db;
+  --border-strong: #c9c5be;
+
+  --good: #006b2d;
+  --good-bg: #d6f9df;
+  --bad: #b42318;
+  --bad-bg: #fde2e0;
+  --warn: #b45309;
+  --warn-bg: #fef0cf;
+  --warn-bar: #f59e0b;
+  --low-bar: #dc2626;
+
+  --shadow: 0 1px 3px rgb(0 0 0 / 10%), 0 1px 2px rgb(0 0 0 / 6%);
+  --radius-lg: 14px;
+  --radius-md: 10px;
+
+  padding: 0 0 24px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+  box-sizing: border-box;
+}
+
+.attendance-page *,
+.attendance-page *::before,
+.attendance-page *::after {
+  box-sizing: border-box;
+}
+
+.attendance-container {
+  width: 100%;
+  max-width: 1680px;
+  margin: 0 auto;
+  container-type: inline-size;
+}
+
+.attendance-page button,
+.attendance-page input,
+.attendance-page select {
+  font-family: inherit;
+}
+
+.attendance-page :focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: 2px;
+}
+
+/* =========================================
+   BREADCRUMB AND HEADER
+========================================= */
+
+.att-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.att-page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 20px;
+  margin-bottom: 20px;
+}
+
+.att-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.att-title-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  color: #ef780e;
+  background: var(--brand-soft);
+  border-radius: 12px;
+}
+
+.att-page-header h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.att-page-header p {
+  max-width: 90ch;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+.att-header-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* shared select look */
+.att-select {
+  min-height: 38px;
+  padding: 8px 12px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.att-select:hover {
+  border-color: var(--brand);
+}
+
+/* =========================================
+   SHARED CARD LOOK
+========================================= */
+
+.att-tile,
+.att-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.att-card {
+  min-width: 0;
+  padding: 20px 22px 22px;
+}
+
+.card-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.card-heading.no-margin {
+  margin-bottom: 0;
+}
+
+.card-heading h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  color: #ef780e;
+  background: var(--brand-soft);
+  border-radius: 10px;
+}
+
+/* =========================================
+   SUMMARY TILES
+========================================= */
+
+.att-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.att-tile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  min-height: 80px;
+  padding: 14px 18px;
+}
+
+.tile-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  color: #ef780e;
+  background: var(--brand-soft);
+  border-radius: 50%;
+}
+
+.tile-icon-green {
+  color: var(--good);
+  background: var(--good-bg);
+}
+
+.tile-icon-red {
+  color: var(--bad);
+  background: var(--bad-bg);
+}
+
+.progress-ring {
+  flex-shrink: 0;
+}
+
+.ring-track {
+  stroke: var(--brand-soft);
+}
+
+.ring-value {
+  stroke: var(--brand);
+}
+
+.tile-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 0;
+}
+
+.tile-text h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.tile-text p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.tile-note {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.trend-up {
+  color: var(--good);
+}
+
+.trend-down {
+  color: var(--bad);
+}
+
+/* =========================================
+   CONTENT GRID
+   narrow: one column
+   wide:   chart left, subjects right
+========================================= */
+
+.att-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  align-items: stretch;
+  margin-bottom: 24px;
+}
+
+/* =========================================
+   BAR CHART
+========================================= */
+
+.chart {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 8px;
+  height: 260px;
+}
+
+.chart-y {
+  position: relative;
+  height: calc(100% - 28px);
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.chart-y span {
+  position: absolute;
+  right: 0;
+  bottom: calc(var(--v) * 1%);
+  transform: translateY(50%);
+}
+
+.chart-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.chart-plot {
+  position: relative;
+  display: flex;
+  flex: 1;
+  gap: 8px;
+  padding: 0 8px;
+  border-left: 1px solid var(--border-strong);
+  border-bottom: 1px solid var(--border-strong);
+  background: repeating-linear-gradient(
+    to top,
+    transparent 0,
+    transparent calc(20% - 1px),
+    var(--border) calc(20% - 1px),
+    var(--border) 20%
+  );
+}
+
+.bar-col {
+  position: relative;
+  flex: 1;
+  height: 100%;
+}
+
+.bar {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: min(56px, 70%);
+  height: calc(var(--v) * 1%);
+  background: var(--brand);
+  border-radius: 6px 6px 0 0;
+  transform: translateX(-50%);
+}
+
+.bar-value {
+  position: absolute;
+  right: 0;
+  bottom: calc(var(--v) * 1% + 6px);
+  left: 0;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.chart-x {
+  display: flex;
+  gap: 8px;
+  height: 28px;
+  padding: 6px 8px 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.chart-x span {
+  flex: 1;
+  text-align: center;
+}
+
+/* =========================================
+   SUBJECT-WISE
+========================================= */
+
+.subject-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.subject-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 16px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.subject-row:first-child {
+  padding-top: 0;
+}
+
+.subject-row:last-child {
+  border-bottom: none;
+}
+
+.subject-name {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.subject-percent {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.subject-track {
+  grid-column: 1 / -1;
+  height: 8px;
+  overflow: hidden;
+  background: #e6e0d8;
+  border-radius: 8px;
+}
+
+.subject-fill {
+  height: 100%;
+  background: var(--brand);
+  border-radius: 8px;
+}
+
+.level-warn .subject-fill {
+  background: var(--warn-bar);
+}
+
+.level-low .subject-fill {
+  background: var(--low-bar);
+}
+
+.subject-note {
+  margin: 14px 0 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* =========================================
+   RECORDS: TOOLBAR + TABLE
+========================================= */
+
+.records-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.records-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  padding: 18px 20px;
+}
+
+.records-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.att-filter-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: #f3efe9;
+  border-radius: 10px;
+}
+
+.att-filter-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  color: #555;
+  background: transparent;
+  border: none;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.att-filter-tab:hover {
+  color: #111;
+}
+
+.att-filter-tab[aria-pressed="true"] {
+  color: #111;
+  background: #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 15%);
+}
+
+.att-filter-count {
+  padding: 1px 7px;
+  color: #555;
+  background: #e6e0d8;
+  border-radius: 10px;
+  font-size: 11px;
+}
+
+.att-table-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 8px 12px;
+  color: #666;
+  background: #faf7f3;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.att-table-search:focus-within {
+  border-color: var(--brand);
+}
+
+.att-table-search input {
+  width: 150px;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.records-table-wrapper {
+  overflow-x: auto;
+}
+
+.records-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+}
+
+.records-table thead {
+  background: var(--header-bg);
+}
+
+.records-table th {
+  padding: 13px 16px;
+  color: #444;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.records-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.records-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.records-table tbody tr:hover td {
+  background: #fffaf4;
+}
+
+.records-table .empty-row td {
+  padding: 36px 16px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.att-cell-main {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.att-table-footer {
+  padding: 12px 20px;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+}
+
+/* status pill (same shape as My Batch .class-status) */
+.att-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.att-status::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+  border-radius: 50%;
+}
+
+.status-present {
+  color: var(--good);
+  background: var(--good-bg);
+}
+
+.status-absent {
+  color: var(--bad);
+  background: var(--bad-bg);
+}
+
+/* =========================================
+   WIDE WORKSPACE (content width 1000px+)
+========================================= */
+
+@container (min-width: 1000px) {
+  .att-grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  }
+}
+
+/* =========================================
+   TABLET (content width up to 860px)
+========================================= */
+
+@container (max-width: 860px) {
+  .att-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* =========================================
+   MOBILE (content width up to 640px)
+   Table turns into one card per record
+========================================= */
+
+@container (max-width: 640px) {
+  .att-page-header h1 {
+    font-size: 22px;
+  }
+
+  .att-title-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+  }
+
+  .att-title-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .att-header-filters,
+  .att-header-filters .att-select {
+    width: 100%;
+  }
+
+  .att-summary {
+    gap: 12px;
+  }
+
+  .att-tile {
+    padding: 12px 14px;
+  }
+
+  .att-card {
+    padding: 16px 14px 20px;
+  }
+
+  .card-heading h2 {
+    font-size: 18px;
+  }
+
+  .chart {
+    height: 220px;
+    grid-template-columns: 38px minmax(0, 1fr);
+  }
+
+  .bar-value {
+    font-size: 11px;
+  }
+
+  /* toolbar */
+  .records-card {
+    overflow: visible;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .records-toolbar {
+    padding: 0 0 12px;
+  }
+
+  .records-controls,
+  .records-controls .att-select,
+  .att-table-search,
+  .att-filter-tabs {
+    width: 100%;
+  }
+
+  .att-filter-tabs {
+    overflow-x: auto;
+  }
+
+  .att-table-search input {
+    width: 100%;
+  }
+
+  .att-table-footer {
+    padding: 4px 0 0;
+    border-top: none;
+  }
+
+  /* table -> cards */
+  .records-table-wrapper {
+    overflow: visible;
+  }
+
+  .records-table {
+    min-width: 0;
+  }
+
+  .records-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .records-table,
+  .records-table tbody,
+  .records-table tr,
+  .records-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .records-table tr {
+    margin-bottom: 12px;
+    padding: 4px 14px;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow);
+  }
+
+  .records-table td,
+  .records-table tbody tr:last-child td,
+  .records-table tbody tr:hover td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    background: transparent;
+    border-bottom: 1px solid #eee;
+    text-align: right;
+  }
+
+  .records-table tr td:last-child {
+    border-bottom: none;
+  }
+
+  .records-table td::before {
+    content: attr(data-label);
+    flex-shrink: 0;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  .records-table .empty-row td {
+    justify-content: center;
+  }
+
+  .records-table .empty-row td::before {
+    content: none;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE (content width up to 360px)
+========================================= */
+
+@container (max-width: 360px) {
+  .att-summary {
+    grid-template-columns: 1fr;
+  }
+}
