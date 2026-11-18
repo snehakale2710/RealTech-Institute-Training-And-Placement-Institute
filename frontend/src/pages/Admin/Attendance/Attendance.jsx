@@ -4,7 +4,6 @@ import {
   CalendarCheck,
   CalendarDays,
   ChartColumn,
-  ChevronRight,
   CircleCheck,
   CircleX,
   Search,
@@ -19,8 +18,15 @@ import "./Attendance.css";
    Replace these with your API response (fetch in useEffect)
 --------------------------------------------------------- */
 
-const SEMESTERS = ["Semester 1", "Semester 2", "Semester 3", "Semester 4"];
-const ACADEMIC_YEARS = ["2026-27", "2025-26"];
+const BATCHES = ["Batch 01", "Batch 02", "Batch 03"];
+const COURSES = [
+  "Python",
+  "Java",
+  "Web Development",
+  "DSA",
+  "SQL & My SQL",
+  "AI & ML",
+];
 
 const totals = { totalClasses: 60, present: 52, absent: 8 };
 
@@ -412,8 +418,8 @@ function RecordsTable({ list }) {
 --------------------------------------------------------- */
 
 function Attendance() {
-  const [semester, setSemester] = useState(SEMESTERS[0]);
-  const [year, setYear] = useState(ACADEMIC_YEARS[0]);
+  const [batch, setBatch] = useState("All");
+  const [course, setCourse] = useState("All");
 
   const overall = (totals.present / totals.totalClasses) * 100;
   const trend = monthly[monthly.length - 1].value - monthly[monthly.length - 2].value;
@@ -421,43 +427,42 @@ function Attendance() {
   return (
     <div className="attendance-page">
       <div className="attendance-container">
-        <nav className="att-breadcrumb" aria-label="Breadcrumb">
-          <span>Home</span>
-          <ChevronRight size={15} />
-          <span aria-current="page">Attendance</span>
-        </nav>
-
         <header className="att-page-header">
-          <div className="att-header-text">
-            <div className="att-title-row">
-              <span className="att-title-icon" aria-hidden="true">
-                <CalendarCheck size={26} strokeWidth={1.8} />
-              </span>
+          <div className="att-title-row">
+            <span className="att-title-icon" aria-hidden="true">
+              <CalendarCheck size={34} strokeWidth={1.8} />
+            </span>
+            <div className="att-title-text">
               <h1>Attendance</h1>
+              <p>Track attendance by month, subject and class.</p>
             </div>
-            <p>Track attendance by month, subject and class.</p>
           </div>
 
           <div className="att-header-filters">
             <select
               className="att-select"
-              aria-label="Semester"
-              value={semester}
-              onChange={(e) => setSemester(e.target.value)}
+              aria-label="Batch"
+              value={batch}
+              onChange={(e) => setBatch(e.target.value)}
             >
-              {SEMESTERS.map((s) => (
-                <option key={s}>{s}</option>
+              <option value="All">All Batches</option>
+              {BATCHES.map((b) => (
+                <option key={b} value={b}>
+                  {b}
+                </option>
               ))}
             </select>
+
             <select
               className="att-select"
-              aria-label="Academic year"
-              value={year}
-              onChange={(e) => setYear(e.target.value)}
+              aria-label="Course"
+              value={course}
+              onChange={(e) => setCourse(e.target.value)}
             >
-              {ACADEMIC_YEARS.map((y) => (
-                <option key={y} value={y}>
-                  Academic Year {y}
+              <option value="All">All Courses</option>
+              {COURSES.map((c) => (
+                <option key={c} value={c}>
+                  {c}
                 </option>
               ))}
             </select>

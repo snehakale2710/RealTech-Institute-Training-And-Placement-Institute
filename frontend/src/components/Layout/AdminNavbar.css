@@ -1,4 +1,3 @@
-
 .admin-navbar {
   height: 65px;
   width: calc(100% - 250px);
@@ -6,23 +5,24 @@
   top: 0;
   right: 0;
   z-index: 900;
-  background: #111313;
-  color: #fff;
+  background: #efd9c4;
+  color: #30251f;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 25px;
-  border-bottom: 1px solid #292c2c;
+  border-bottom: 1px solid #e4c9af;
 }
 
 .admin-navbar-left h3 {
   margin: 0 0 3px;
   font-size: 15px;
+  color: #30251f;
 }
 
 .admin-navbar-left span {
   font-size: 10px;
-  color: #999;
+  color: #76675b;
 }
 
 .admin-navbar-right {
@@ -38,15 +38,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #252828;
+  background: #fff5eb;
   border: none;
-  border-radius: 7px;
-  color: #fff;
+  border-radius: 50%;
+  color: #30251f;
   cursor: pointer;
 }
 
 .navbar-icon-btn:hover {
-  background: #363939;
+  background: #f7e6d6;
 }
 
 .notification-dot {
@@ -55,7 +55,7 @@
   right: 6px;
   width: 7px;
   height: 7px;
-  background: #ff8924;
+  background: #f47724;
   border-radius: 50%;
 }
 
@@ -63,6 +63,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  color: #30251f;
   cursor: pointer;
 }
 
@@ -70,7 +71,8 @@
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  background: #ff8924;
+  background: #fff5eb;
+  color: #30251f;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,7 +87,7 @@
 .navbar-profile-info p {
   margin: 0;
   font-size: 10px;
-  color: #999;
+  color: #76675b;
 }
 
 @media (max-width: 768px) {

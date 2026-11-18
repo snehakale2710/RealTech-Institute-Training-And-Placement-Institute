@@ -66,23 +66,15 @@
 }
 
 /* =========================================
-   BREADCRUMB AND HEADER
+   HEADER
+   Icon on the left; title and subtitle stacked
+   in one block so they line up with each other.
 ========================================= */
-
-.att-breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 8px;
-  color: var(--text-muted);
-  font-size: 13px;
-  font-weight: 600;
-}
 
 .att-page-header {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 12px 20px;
   margin-bottom: 20px;
@@ -91,8 +83,7 @@
 .att-title-row {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 6px;
+  gap: 14px;
 }
 
 .att-title-icon {
@@ -100,20 +91,20 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 46px;
-  height: 46px;
+  width: 60px; /* was 46px */
+  height: 60px;
   color: #ef780e;
   background: var(--brand-soft);
-  border-radius: 12px;
+  border-radius: 14px;
 }
 
-.att-page-header h1 {
-  margin: 0;
+.att-title-text h1 {
+  margin: 0 0 4px;
   font-size: 26px;
   font-weight: 700;
 }
 
-.att-page-header p {
+.att-title-text p {
   max-width: 90ch;
   margin: 0;
   color: var(--text-muted);
@@ -301,16 +292,24 @@
    BAR CHART
 ========================================= */
 
+/* make both cards in the row fill the same height */
+.att-grid > .att-card {
+  display: flex;
+  flex-direction: column;
+}
+
 .chart {
   display: grid;
   grid-template-columns: 44px minmax(0, 1fr);
   gap: 8px;
-  height: 260px;
+  flex: 1; /* chart grows to fill the card */
+  min-height: 260px;
+  padding-top: 10px; /* room for the 100% label */
 }
 
 .chart-y {
   position: relative;
-  height: calc(100% - 28px);
+  margin-bottom: 28px; /* matches the x-label row height */
   color: var(--text-muted);
   font-size: 12px;
 }
@@ -334,8 +333,9 @@
   flex: 1;
   gap: 8px;
   padding: 0 8px;
-  border-left: 1px solid var(--border-strong);
-  border-bottom: 1px solid var(--border-strong);
+  box-shadow:
+    inset 1px 0 0 var(--border-strong),
+    inset 0 -1px 0 var(--border-strong);
   background: repeating-linear-gradient(
     to top,
     transparent 0,
@@ -657,19 +657,19 @@
 ========================================= */
 
 @container (max-width: 640px) {
-  .att-page-header h1 {
+  .att-title-text h1 {
     font-size: 22px;
   }
 
   .att-title-icon {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
   }
 
   .att-title-icon svg {
-    width: 22px;
-    height: 22px;
+    width: 26px;
+    height: 26px;
   }
 
   .att-header-filters,
@@ -694,7 +694,7 @@
   }
 
   .chart {
-    height: 220px;
+    min-height: 220px;
     grid-template-columns: 38px minmax(0, 1fr);
   }
 
