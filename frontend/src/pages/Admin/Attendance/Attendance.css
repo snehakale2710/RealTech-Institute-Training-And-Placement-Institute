@@ -91,7 +91,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 60px; /* was 46px */
+  width: 60px;
   height: 60px;
   color: #ef780e;
   background: var(--brand-soft);
@@ -131,6 +131,12 @@
 
 .att-select:hover {
   border-color: var(--brand);
+}
+
+/* All Batches + All Courses share one fixed size */
+.att-header-filters .att-select {
+  flex: 0 0 180px;
+  width: 180px;
 }
 
 /* =========================================
@@ -672,8 +678,13 @@
     height: 26px;
   }
 
-  .att-header-filters,
+  .att-header-filters {
+    width: 100%;
+  }
+
+  /* both filters stay the same size, filling the row */
   .att-header-filters .att-select {
+    flex: 1 1 100%;
     width: 100%;
   }
 
