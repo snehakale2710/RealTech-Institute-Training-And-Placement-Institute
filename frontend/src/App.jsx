@@ -7,6 +7,9 @@ import AdminLayout from "./components/Layout/AdminLayout";
 /* Auth */
 import Welcome from "./pages/Auth/Welcome";
 import Login from "./pages/Auth/Login";
+import Register from "./pages/Auth/Register";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+import ResetPassword from "./pages/Auth/ResetPassword";
 
 /* Student pages */
 import StudentDashboard from "./pages/Student/Dashboard/Dashboard";
@@ -36,6 +39,9 @@ function App() {
         {/* Public */}
         <Route path="/" element={<Welcome />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
 
         {/* Student portal */}
         <Route path="/student" element={<StudentLayout />}>
