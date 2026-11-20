@@ -1,0 +1,857 @@
+/* =========================================
+   ADMIN BATCHES PAGE
+   Same tokens, spacing and patterns as My Batch
+   and Attendance: header -> 4 summary tiles ->
+   table card -> footer. Responsive rules use
+   container queries so they follow the space
+   left beside the sidebar.
+   FONT: inherited from `body` (Inter, see index.css).
+========================================= */
+
+.batches-page {
+  --brand: #ff8b22;
+  --brand-hover: #ed7510;
+  --brand-soft: #ffeadb;
+  --brand-tint: #fff8f0;
+  --header-bg: #fbf0df;
+
+  --surface: #ffffff;
+  --text: #171717;
+  --text-muted: #5a5a5a;
+  --border: #e3e0db;
+  --border-strong: #c9c5be;
+
+  --good: #006b2d;
+  --good-bg: #d6f9df;
+  --bad: #b42318;
+  --bad-bg: #fde2e0;
+
+  --shadow: 0 1px 3px rgb(0 0 0 / 10%), 0 1px 2px rgb(0 0 0 / 6%);
+  --radius-lg: 14px;
+  --radius-md: 10px;
+
+  padding: 0 0 24px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+  box-sizing: border-box;
+}
+
+.batches-page *,
+.batches-page *::before,
+.batches-page *::after {
+  box-sizing: border-box;
+}
+
+.batches-container {
+  width: 100%;
+  max-width: 1680px;
+  margin: 0 auto;
+  container-type: inline-size;
+}
+
+.batches-page button,
+.batches-page input,
+.batches-page select {
+  font-family: inherit;
+}
+
+.batches-page :focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: 2px;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.bt-page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  margin-bottom: 20px;
+}
+
+.bt-title-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.bt-title-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  color: #ef780e;
+  background: var(--brand-soft);
+  border-radius: 14px;
+}
+
+.bt-title-text h1 {
+  margin: 0 0 4px;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.bt-title-text p {
+  max-width: 90ch;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+/* primary / outline buttons */
+.bt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 10px 20px;
+  color: #fff;
+  background: var(--brand);
+  border: 1px solid var(--brand);
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+}
+
+.bt-btn:hover {
+  background: var(--brand-hover);
+}
+
+.bt-btn-outline {
+  color: #c25a00;
+  background: var(--surface);
+}
+
+.bt-btn-outline:hover {
+  background: #fff5eb;
+}
+
+/* =========================================
+   SHARED CARD LOOK
+========================================= */
+
+.bt-tile,
+.bt-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+/* =========================================
+   SUMMARY TILES
+========================================= */
+
+.bt-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.bt-tile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  min-height: 80px;
+  padding: 14px 18px;
+}
+
+.bt-tile-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  color: #ef780e;
+  background: var(--brand-soft);
+  border-radius: 50%;
+}
+
+.bt-tile-icon.tone-green {
+  color: var(--good);
+  background: var(--good-bg);
+}
+
+.bt-tile-icon.tone-blue {
+  color: #1d4ed8;
+  background: #dbe8ff;
+}
+
+.bt-tile-icon.tone-purple {
+  color: #7c3aed;
+  background: #ece3ff;
+}
+
+.bt-tile-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 0;
+}
+
+.bt-tile-text h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.bt-tile-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.bt-tile-note {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* =========================================
+   TOOLBAR
+========================================= */
+
+.bt-card {
+  overflow: hidden;
+}
+
+.bt-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+}
+
+.bt-search {
+  display: flex;
+  flex: 1 1 280px;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 8px 12px;
+  color: #666;
+  background: #faf7f3;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.bt-search:focus-within {
+  border-color: var(--brand);
+}
+
+.bt-search input {
+  width: 100%;
+  min-width: 0;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.bt-select {
+  flex: 0 0 160px;
+  width: 160px;
+  min-height: 38px;
+  padding: 8px 12px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.bt-select:hover {
+  border-color: var(--brand);
+}
+
+.bt-reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 8px 16px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.bt-reset:hover {
+  color: var(--brand-hover);
+  border-color: var(--brand);
+  background: var(--brand-tint);
+}
+
+/* =========================================
+   TABLE
+========================================= */
+
+.bt-table-wrapper {
+  overflow-x: auto;
+}
+
+.bt-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+}
+
+.bt-table thead {
+  background: var(--header-bg);
+}
+
+.bt-table th {
+  padding: 13px 16px;
+  color: #444;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.bt-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  font-size: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+}
+
+.bt-sort svg {
+  color: #8a8378;
+}
+
+.bt-sort:hover,
+.bt-sort:hover svg,
+.bt-table th[aria-sort="ascending"] .bt-sort svg,
+.bt-table th[aria-sort="descending"] .bt-sort svg {
+  color: var(--brand-hover);
+}
+
+.bt-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.bt-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.bt-table tbody tr:hover td {
+  background: #fffaf4;
+}
+
+.bt-table .bt-empty-row td {
+  padding: 36px 16px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.bt-batch-cell {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 170px;
+}
+
+.bt-batch-cell svg {
+  flex-shrink: 0;
+}
+
+.bt-main,
+.bt-sub {
+  display: block;
+}
+
+.bt-main {
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.bt-main-light {
+  font-weight: 500;
+}
+
+.bt-sub {
+  margin-top: 2px;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.bt-course {
+  color: var(--text-muted);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* status pill (same shape as My Batch / Attendance) */
+.bt-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.bt-status::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+  border-radius: 50%;
+}
+
+.bt-status-active {
+  color: var(--good);
+  background: var(--good-bg);
+}
+
+.bt-status-inactive {
+  color: var(--bad);
+  background: var(--bad-bg);
+}
+
+/* =========================================
+   ACTION BUTTONS
+========================================= */
+
+.bt-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bt-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: #4a6a9c;
+  background: #f3f7fd;
+  border: 1px solid #d8e3f3;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.bt-icon-btn:hover {
+  color: var(--brand-hover);
+  background: var(--brand-tint);
+  border-color: var(--brand);
+}
+
+.bt-menu-wrap {
+  position: relative;
+}
+
+.bt-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 20;
+  min-width: 170px;
+  padding: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 15%);
+}
+
+.bt-menu button {
+  display: block;
+  width: 100%;
+  padding: 9px 12px;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.bt-menu button:hover {
+  background: var(--brand-tint);
+}
+
+.bt-menu .bt-menu-danger {
+  color: var(--bad);
+}
+
+.bt-menu .bt-menu-danger:hover {
+  background: var(--bad-bg);
+}
+
+/* =========================================
+   FOOTER + PAGINATION
+========================================= */
+
+.bt-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.bt-footer p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.bt-pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bt-pagination button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  height: 38px;
+  padding: 0 8px;
+  color: #555;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.bt-pagination button:hover:not(:disabled) {
+  border-color: var(--brand);
+}
+
+.bt-pagination button.active {
+  color: #fff;
+  background: var(--brand);
+  border-color: var(--brand);
+}
+
+.bt-pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   MODALS (view + create/edit)
+========================================= */
+
+.bt-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgb(0 0 0 / 45%);
+}
+
+.bt-modal {
+  width: 100%;
+  max-width: 480px;
+  max-height: calc(100vh - 32px);
+  padding: 22px;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 25%);
+}
+
+.bt-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.bt-modal-header h3 {
+  margin: 0;
+  font-size: 19px;
+}
+
+.bt-modal-close {
+  display: inline-flex;
+  padding: 6px;
+  color: #444;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.bt-modal-close:hover {
+  background: #f0f0f0;
+}
+
+.bt-details {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.bt-details > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.bt-details > div:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.bt-details dt {
+  color: var(--text-muted);
+}
+
+.bt-details dd {
+  margin: 0;
+  font-weight: 600;
+  text-align: right;
+}
+
+.bt-form {
+  display: grid;
+  gap: 14px;
+}
+
+.bt-form label {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.bt-form input,
+.bt-form select {
+  min-height: 40px;
+  padding: 8px 12px;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.bt-form input:focus,
+.bt-form select:focus {
+  border-color: var(--brand);
+  outline: none;
+}
+
+.bt-form-error {
+  margin: 0;
+  color: var(--bad);
+  font-size: 13px;
+}
+
+.bt-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+/* =========================================
+   TABLET (content width up to 860px)
+========================================= */
+
+@container (max-width: 860px) {
+  .bt-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* =========================================
+   MOBILE (content width up to 640px)
+   Table turns into one card per batch
+========================================= */
+
+@container (max-width: 640px) {
+  .bt-title-text h1 {
+    font-size: 22px;
+  }
+
+  .bt-title-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+  }
+
+  .bt-title-icon svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .bt-page-header .bt-btn {
+    width: 100%;
+  }
+
+  .bt-summary {
+    gap: 12px;
+  }
+
+  .bt-tile {
+    padding: 12px 14px;
+  }
+
+  /* toolbar */
+  .bt-card {
+    overflow: visible;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .bt-toolbar {
+    padding: 0 0 12px;
+  }
+
+  .bt-search,
+  .bt-select,
+  .bt-reset {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  /* table -> cards */
+  .bt-table-wrapper {
+    overflow: visible;
+  }
+
+  .bt-table {
+    min-width: 0;
+  }
+
+  .bt-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .bt-table,
+  .bt-table tbody,
+  .bt-table tr,
+  .bt-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .bt-table tr {
+    margin-bottom: 12px;
+    padding: 4px 14px;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow);
+  }
+
+  .bt-table td,
+  .bt-table tbody tr:last-child td,
+  .bt-table tbody tr:hover td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    background: transparent;
+    border-bottom: 1px solid #eee;
+    text-align: right;
+  }
+
+  .bt-table tr td:last-child {
+    border-bottom: none;
+  }
+
+  .bt-table td::before {
+    content: attr(data-label);
+    flex-shrink: 0;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  .bt-table .bt-empty-row td::before {
+    content: none;
+  }
+
+  .bt-table .bt-empty-row td {
+    justify-content: center;
+  }
+
+  .bt-batch-cell {
+    min-width: 0;
+    text-align: left;
+  }
+
+  .bt-footer {
+    justify-content: center;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE (content width up to 360px)
+========================================= */
+
+@container (max-width: 360px) {
+  .bt-summary {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .batches-page * {
+    transition: none !important;
+  }
+}
